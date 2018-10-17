@@ -11,9 +11,10 @@ The full Description is available in the Source Code.
 
 ## Installation.
 
-Import Command:
+Import Commands:
 ```
 go get "github.com/legacy-vault/library/go/text_data_processor"
+go get "github.com/legacy-vault/example/go/text_data_processor/code"
 ```
 
 ## Usage.
