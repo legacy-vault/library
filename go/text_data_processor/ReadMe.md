@@ -9,10 +9,14 @@ The Processor receives input text Data (from a CSV File's Row) and tries to put 
 
 The full Description is available in the Source Code.
 
+## Installation.
+
 Import Command:
 ```
 go get "github.com/legacy-vault/library/go/text_data_processor"
 ```
+
+## Usage.
 
 Usage Example can be found at the following Address:
 
