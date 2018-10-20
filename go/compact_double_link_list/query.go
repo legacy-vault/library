@@ -150,6 +150,11 @@ func (list *List) IsIntegral() bool {
 
 	// List has two or more Items.
 
+	// Check Head Corner.
+	if head.previousItem != nil {
+		return false
+	}
+
 	// Try to inspect all Items from Head to Tail.
 	// This checks Connectivity by the 'next' Pointer.
 	cursor = head
@@ -177,6 +182,11 @@ func (list *List) IsIntegral() bool {
 	// Are we really there where we should be?
 	if cursor != tail {
 		// We have found a broken Connection.
+		return false
+	}
+
+	// Check Tail Corner.
+	if tail.nextItem != nil {
 		return false
 	}
 
