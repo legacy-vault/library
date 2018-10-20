@@ -139,6 +139,12 @@ func (list *List) IsIntegral() bool {
 		if head != tail {
 			return false
 		}
+		if head.previousItem != nil {
+			return false
+		}
+		if tail.nextItem != nil {
+			return false
+		}
 		return true
 	}
 
