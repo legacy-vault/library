@@ -16,7 +16,14 @@ The Cache Object has two Parameters:
 	*	TTL (Period is set in Seconds).
 
 When we add a Record to the Cache, if an incoming Record already exists in the 
-Cache, it is moved from its existing Position to the Top of the Cache.
+Cache, it is moved from its existing Position to the Top of the Cache. The Term 
+'exists' means that there is a Record in the Cache with the same UID as the UID 
+of the inserted Record.
+
+Each Record has a 'UID' and a 'Data' Fields.
+'UID' is used for Indexing. 'Data' is used to store some useful Information.
+It is not recommended to set the 'Data' Field as 'nil'. If you do not want to 
+store anything, it is better to set it to 'true' of 'false'.
 
 If an incoming Record is new (does not exist in the Cache), it is added to the 
 Top of the Cache deleting the Bottom Element from the Cache (all the existing 
