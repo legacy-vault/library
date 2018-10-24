@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-23.
+// Creation Date:	2018-10-24.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -29,6 +29,8 @@
 package cache
 
 import (
+	"errors"
+	"reflect"
 	"time"
 )
 
@@ -42,6 +44,9 @@ type Cache struct {
 	recordByUID map[RecordUID]*Record
 	recordTTL   int64 // Seconds
 }
+
+var ErrDataIsEmpty = errors.New("'Data' Field is not set")
+var ErrUIDIsEmpty = errors.New("'UID' Field is not set")
 
 // Creates a new List.
 // * [Capacity] is the maximum Size of Cache. New Records added when the Cache
@@ -99,6 +104,31 @@ func (cache *Cache) SetRecordTTL(recordTTL int64) {
 	return
 }
 
+// Checks the Record's Parameters and adds a Record to the Cache.
+func (cache *Cache) AddRecord(uid RecordUID, data interface{}) error {
+
+	var uidType reflect.Kind
+
+	// Check 'Data' Field.
+	if data == nil {
+		return ErrDataIsEmpty
+	}
+
+	// Check 'UID' Field.
+	uidType = reflect.TypeOf(uid).Kind()
+	switch uidType {
+
+	case reflect.String:
+		if len(uid) == 0 {
+			return ErrUIDIsEmpty
+		}
+	}
+
+	cache.addARecord(&Record{UID: uid, Data: data})
+
+	return nil
+}
+
 // Adds a Record to the Cache.
 // If the Record with a specified UID already exists in the Cache,
 // then that existing Record is moved to the Head Position.
@@ -108,7 +138,7 @@ func (cache *Cache) SetRecordTTL(recordTTL int64) {
 // Record) is removed from the Cache.
 // At the End, the Head Record is updated with the Data from the Function's
 // Argument 'Data' Field.
-func (cache *Cache) AddARecord(r *Record) {
+func (cache *Cache) addARecord(r *Record) {
 
 	var deletedUid RecordUID
 	var existingRecord *Record
