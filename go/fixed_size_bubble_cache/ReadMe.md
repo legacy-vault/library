@@ -32,9 +32,9 @@ course, all the "moved" Records are not moved anywhere, while this Cache uses a
 double Link List to store Records, which makes Insertion and Removal 
 Operations very fast.
 
-Example:
-[ghi] + [abc,def,ghi,jkl,xyz] => [ghi,abc,def,jkl,xyz].
-[xxx] + [abc,def,ghi,jkl,xyz] => [xxx,abc,def,ghi,jkl].
+Example:<br />
+[ghi] + [abc,def,ghi,jkl,xyz] => [ghi,abc,def,jkl,xyz].<br />
+[xxx] + [abc,def,ghi,jkl,xyz] => [xxx,abc,def,ghi,jkl].<br />
 
 When the User requests a Value (by the UID) from the Cache, we first, check its 
 Existence in the Cache's List, and second, check Record's TTL (Time To Live). 
