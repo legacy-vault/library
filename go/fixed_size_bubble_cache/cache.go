@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-24.
+// Creation Date:	2018-10-25.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -296,7 +296,7 @@ func (cache *Cache) deleteRecord(r *Record) {
 	var left *Record
 	var right *Record
 
-	// Delete the Tail Record from the Fast Access Register.
+	// Delete the Record from the Fast Access Register.
 	deletedUid = r.UID
 	delete(cache.recordByUID, deletedUid)
 
@@ -305,22 +305,26 @@ func (cache *Cache) deleteRecord(r *Record) {
 
 	// Remove the Record from the Double Link List.
 	if cache.size == 0 {
+
+		// New Cache Size is Zero => It must be empty.
 		cache.head = nil
 		cache.tail = nil
 		return
 	}
 
-	if cache.head == r {
+	// New Cache Size is >0 => It had 2 or more Records before Removal.
 
-		// Remove the Head Record.
+	if r == cache.head {
+
+		// Removed Record is the Head Record.
 		cache.head = r.nextItem
 		cache.head.previousItem = nil
 		r.nextItem = nil
 		return
 
-	} else if cache.tail == r {
+	} else if r == cache.tail {
 
-		// Remove the Tail Record.
+		// Removed Record is the Tail Record.
 		cache.tail = r.previousItem
 		cache.tail.nextItem = nil
 		r.previousItem = nil
@@ -328,7 +332,7 @@ func (cache *Cache) deleteRecord(r *Record) {
 
 	} else {
 
-		// Remove the Record normally.
+		// Removed Record is removed normally.
 		left = r.previousItem
 		right = r.nextItem
 		left.nextItem = right
@@ -370,15 +374,24 @@ func (cache *Cache) EnlistAllRecords() []*Record {
 func (cache *Cache) EnlistAllRecordValues() []interface{} {
 
 	var i uint64
-	var records []*Record
+	var record *Record
 	var size uint64
 	var values []interface{}
 
-	records = cache.EnlistAllRecords()
 	size = cache.size
 	values = make([]interface{}, size)
-	for i = 0; i < size; i++ {
-		values[i] = records[i].Data
+	if size == 0 {
+		return values
+	}
+
+	// Get the first Item.
+	record = cache.head
+	values[0] = record.Data
+
+	// Get all other Items.
+	for i = 1; i < size; i++ {
+		record = record.nextItem
+		values[i] = record.Data
 	}
 
 	return values
