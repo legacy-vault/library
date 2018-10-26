@@ -7,13 +7,13 @@ This Package provides a cached Access to the File Storage.
 
 ## Full Description.
 
-This Package provides a cached Access to the File Storage.
-
-BTIH is used as a Key in Cache List.
-File Contents are used as a Value in Cache List.
-Files are stored in a linear Order and their Names follow this Format:
-	"<BTIH>.<Extension>".
-
+This Package provides a cached Access to the File Storage.<br />
+<br />
+BTIH is used as a Key in Cache List.<br />
+File Contents are used as a Value in Cache List.<br />
+Files are stored in a linear Order and their Names follow this Format:<br />
+	"&lt;BTIH&gt;.&lt;Extension&gt;".<br />
+<br />
 This Package offers Read-Only Functionality.
 
 ## Installation.
