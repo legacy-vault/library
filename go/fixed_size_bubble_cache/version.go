@@ -20,35 +20,10 @@
 //
 //============================================================================//
 
-// record.go.
+// version.go.
 
-// Fixed Size Bubble Cache :: Record Object Functions.
+// Fixed Size Bubble Cache :: Library Version.
 
 package fsbcache
 
-import "time"
-
-type RecordUID = string
-
-type Record struct {
-	UID  RecordUID
-	Data interface{}
-
-	lastAccessTime int64
-
-	nextItem     *Record
-	previousItem *Record
-}
-
-// Updates Record's Data and Last Access Time.
-func (r *Record) UpdateDataAndLAT(data interface{}) {
-
-	r.Data = data
-	r.lastAccessTime = time.Now().Unix()
-}
-
-// Updates Record's Last Access Time.
-func (r *Record) UpdateLAT() {
-
-	r.lastAccessTime = time.Now().Unix()
-}
+const LibraryVersion = "1.0"

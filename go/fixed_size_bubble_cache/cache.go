@@ -15,18 +15,18 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-25.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
 
 // cache.go.
 
-// Cache Object Functions.
+// Fixed Size Bubble Cache :: Cache Object Functions.
 
 // Description of the Package is available in a separate 'ReadMe' File.
 
-package cache
+package fsbcache
 
 import (
 	"errors"
@@ -45,8 +45,10 @@ type Cache struct {
 	recordTTL   int64 // Seconds
 }
 
-var ErrDataIsEmpty = errors.New("'Data' Field is not set")
-var ErrUIDIsEmpty = errors.New("'UID' Field is not set")
+var (
+	ErrDataIsEmpty = errors.New("'Data' Field is not set")
+	ErrUIDIsEmpty  = errors.New("'UID' Field is not set")
+)
 
 // Creates a new List.
 // * [Capacity] is the maximum Size of Cache. New Records added when the Cache
@@ -72,38 +74,6 @@ func New(
 	return cache
 }
 
-// Initializes the Cache.
-func (cache *Cache) initialize(
-	c uint64,
-	recordTTL int64,
-) {
-
-	cache.head = nil
-	cache.tail = nil
-
-	cache.capacity = c
-	cache.size = 0
-
-	cache.recordTTL = recordTTL
-	cache.recordByUID = make(map[RecordUID]*Record)
-
-	return
-}
-
-// Returns the 'RecordTTL' Parameter of the Cache.
-func (cache *Cache) GetRecordTTL() int64 {
-
-	return cache.recordTTL
-}
-
-// Changes the 'RecordTTL' Parameter of the Cache.
-func (cache *Cache) SetRecordTTL(recordTTL int64) {
-
-	cache.recordTTL = recordTTL
-
-	return
-}
-
 // Checks the Record's Parameters and adds a Record to the Cache.
 func (cache *Cache) AddRecord(uid RecordUID, data interface{}) error {
 
@@ -127,6 +97,160 @@ func (cache *Cache) AddRecord(uid RecordUID, data interface{}) error {
 	cache.addARecord(&Record{UID: uid, Data: data})
 
 	return nil
+}
+
+// Deletes all Records from the Cache.
+// Returns 'true' on Success.
+func (cache *Cache) Clear() bool {
+
+	var i uint64
+	var cacheIsIntegral bool
+	var size uint64
+
+	// Before deleting the Records, we must ensure that Cache is not broken.
+	// Broken Cache Deletion would have caused us a lot of Memory Leaks!
+	cacheIsIntegral = cache.isIntegral()
+	if !cacheIsIntegral {
+		return false
+	}
+
+	// Prepare Data.
+	size = cache.size
+
+	// Delete all Items from Tail to Head.
+	for i = 1; i <= size; i++ {
+		cache.deleteARecord(cache.tail)
+	}
+
+	return true
+}
+
+// Deletes from the Cache a Record specified by its UID if it exists in Cache.
+func (cache *Cache) DeleteRecordByUID(uid RecordUID) {
+
+	var record *Record
+	var recordExists bool
+
+	// Find the Record.
+	record, recordExists = cache.recordByUID[uid]
+	if !recordExists {
+		return
+	}
+
+	// Delete the Record.
+	cache.deleteARecord(record)
+
+	return
+}
+
+// Enlists Values of all Records of the Cache.
+func (cache *Cache) EnlistAllRecordValues() []interface{} {
+
+	var i uint64
+	var record *Record
+	var size uint64
+	var values []interface{}
+
+	size = cache.size
+	values = make([]interface{}, size)
+	if size == 0 {
+		return values
+	}
+
+	// Get the first Item.
+	record = cache.head
+	values[0] = record.Data
+
+	// Get all other Items.
+	for i = 1; i < size; i++ {
+		record = record.nextItem
+		values[i] = record.Data
+	}
+
+	return values
+}
+
+// Enlists all Records of the Cache.
+func (cache *Cache) EnlistAllRecords() []*Record {
+
+	var i uint64
+	var record *Record
+	var records []*Record
+	var size uint64
+
+	size = cache.size
+	records = make([]*Record, size)
+	if size == 0 {
+		return records
+	}
+
+	// Get the first Item.
+	record = cache.head
+	records[0] = record
+
+	// Get all other Items.
+	for i = 1; i < size; i++ {
+		record = record.nextItem
+		records[i] = record
+	}
+
+	return records
+}
+
+// Gets Record's Data by its UID.
+// Second returned Parameter is 'false' when one the following is true:
+// 	-	The UID does not exist,
+//	-	The Record exists but is outdated.
+func (cache *Cache) GetRecordDataByUID(uid RecordUID) (interface{}, bool) {
+
+	var data interface{}
+	var nowTimeStamp int64
+	var record *Record
+	var recordLATMax int64
+	var uidExists bool
+
+	record, uidExists = cache.recordByUID[uid]
+	if !uidExists {
+		return nil, false
+	}
+
+	// Check the TTL. Is the Record Outdated?
+	recordLATMax = record.lastAccessTime + cache.recordTTL
+	nowTimeStamp = time.Now().Unix()
+	if nowTimeStamp > recordLATMax {
+		// Record is outdated and must be deleted.
+		cache.deleteARecord(record)
+
+		return nil, false
+	}
+
+	data = record.Data
+
+	return data, true
+}
+
+// Returns the 'RecordTTL' Parameter of the Cache.
+func (cache *Cache) GetRecordTTL() int64 {
+
+	return cache.recordTTL
+}
+
+// Checks whether the specified Record's UID exists in the Cache.
+func (cache *Cache) RecordUIDExists(uid RecordUID) bool {
+
+	var uidExists bool
+
+	_, uidExists = cache.recordByUID[uid]
+
+	return uidExists
+}
+
+// Changes the 'RecordTTL' Parameter of the Cache.
+func (cache *Cache) SetRecordTTL(recordTTL int64) {
+
+	cache.recordTTL = recordTTL
+
+	return
 }
 
 // Adds a Record to the Cache.
@@ -161,7 +285,7 @@ func (cache *Cache) addARecord(r *Record) {
 			// 1. The Record is already the Head.
 
 			// Update Record's Data.
-			cache.head.UpdateData(r.Data)
+			cache.head.UpdateDataAndLAT(r.Data)
 
 			return
 		}
@@ -194,7 +318,7 @@ func (cache *Cache) addARecord(r *Record) {
 		cache.head = existingRecord
 
 		// Update Record's Data.
-		cache.head.UpdateData(r.Data)
+		cache.head.UpdateDataAndLAT(r.Data)
 
 		return
 	}
@@ -246,51 +370,9 @@ func (cache *Cache) addARecord(r *Record) {
 	return
 }
 
-// Checks whether the specified Record's UID exists in the Cache.
-func (cache *Cache) RecordUIDExists(uid RecordUID) bool {
-
-	var uidExists bool
-
-	_, uidExists = cache.recordByUID[uid]
-
-	return uidExists
-}
-
-// Gets Record's Data by its UID.
-// Second returned Parameter is 'false' when one the following is true:
-// 	-	The UID does not exist,
-//	-	The Record exists but is outdated.
-func (cache *Cache) GetRecordDataByUID(uid RecordUID) (interface{}, bool) {
-
-	var data interface{}
-	var nowTimeStamp int64
-	var record *Record
-	var recordLATMax int64
-	var uidExists bool
-
-	record, uidExists = cache.recordByUID[uid]
-	if !uidExists {
-		return nil, false
-	}
-
-	// Check the TTL. Is the Record Outdated?
-	recordLATMax = record.lastAccessTime + cache.recordTTL
-	nowTimeStamp = time.Now().Unix()
-	if nowTimeStamp > recordLATMax {
-		// Record is outdated and must be deleted.
-		cache.deleteRecord(record)
-
-		return nil, false
-	}
-
-	data = record.Data
-
-	return data, true
-}
-
 // Deletes the Record from the Cache's List, Unlinks the Record.
 // Also modifies the Fast Access Register.
-func (cache *Cache) deleteRecord(r *Record) {
+func (cache *Cache) deleteARecord(r *Record) {
 
 	var deletedUid RecordUID
 	var left *Record
@@ -343,84 +425,22 @@ func (cache *Cache) deleteRecord(r *Record) {
 	}
 }
 
-// Enlists all Records of the Cache.
-func (cache *Cache) EnlistAllRecords() []*Record {
+// Initializes the Cache.
+func (cache *Cache) initialize(
+	c uint64,
+	recordTTL int64,
+) {
 
-	var i uint64
-	var record *Record
-	var records []*Record
-	var size uint64
+	cache.head = nil
+	cache.tail = nil
 
-	size = cache.size
-	records = make([]*Record, size)
-	if size == 0 {
-		return records
-	}
+	cache.capacity = c
+	cache.size = 0
 
-	// Get the first Item.
-	record = cache.head
-	records[0] = record
+	cache.recordTTL = recordTTL
+	cache.recordByUID = make(map[RecordUID]*Record)
 
-	// Get all other Items.
-	for i = 1; i < size; i++ {
-		record = record.nextItem
-		records[i] = record
-	}
-
-	return records
-}
-
-// Enlists Values of all Records of the Cache.
-func (cache *Cache) EnlistAllRecordValues() []interface{} {
-
-	var i uint64
-	var record *Record
-	var size uint64
-	var values []interface{}
-
-	size = cache.size
-	values = make([]interface{}, size)
-	if size == 0 {
-		return values
-	}
-
-	// Get the first Item.
-	record = cache.head
-	values[0] = record.Data
-
-	// Get all other Items.
-	for i = 1; i < size; i++ {
-		record = record.nextItem
-		values[i] = record.Data
-	}
-
-	return values
-}
-
-// Deletes all Records from the Cache.
-// Returns 'true' on Success.
-func (cache *Cache) Clear() bool {
-
-	var i uint64
-	var cacheIsIntegral bool
-	var size uint64
-
-	// Before deleting the Records, we must ensure that Cache is not broken.
-	// Broken Cache Deletion would have caused us a lot of Memory Leaks!
-	cacheIsIntegral = cache.isIntegral()
-	if !cacheIsIntegral {
-		return false
-	}
-
-	// Prepare Data.
-	size = cache.size
-
-	// Delete all Items from Tail to Head.
-	for i = 1; i <= size; i++ {
-		cache.deleteRecord(cache.tail)
-	}
-
-	return true
+	return
 }
 
 // Checks the Integrity of the Cache.
