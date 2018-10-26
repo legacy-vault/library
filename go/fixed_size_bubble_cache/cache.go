@@ -50,7 +50,7 @@ var (
 	ErrUIDIsEmpty  = errors.New("'UID' Field is not set")
 )
 
-// Creates a new List.
+// Creates a new Cache.
 // * [Capacity] is the maximum Size of Cache. New Records added when the Cache
 // is at its maximum Size, will remove the Tail Record. Tail Record is a Record
 // with the oldest Access Time.
