@@ -144,7 +144,7 @@ func (cache *Cache) DeleteRecordByUID(uid RecordUID) {
 }
 
 // Enlists Values of all Records of the Cache.
-func (cache *Cache) EnlistAllRecordValues() []interface{} {
+func (cache Cache) EnlistAllRecordValues() []interface{} {
 
 	var i uint64
 	var record *Record
@@ -171,7 +171,7 @@ func (cache *Cache) EnlistAllRecordValues() []interface{} {
 }
 
 // Enlists all Records of the Cache.
-func (cache *Cache) EnlistAllRecords() []*Record {
+func (cache Cache) EnlistAllRecords() []*Record {
 
 	var i uint64
 	var record *Record
@@ -230,13 +230,13 @@ func (cache *Cache) GetRecordDataByUID(uid RecordUID) (interface{}, bool) {
 }
 
 // Returns the 'RecordTTL' Parameter of the Cache.
-func (cache *Cache) GetRecordTTL() int64 {
+func (cache Cache) GetRecordTTL() int64 {
 
 	return cache.recordTTL
 }
 
 // Checks whether the specified Record's UID exists in the Cache.
-func (cache *Cache) RecordUIDExists(uid RecordUID) bool {
+func (cache Cache) RecordUIDExists(uid RecordUID) bool {
 
 	var uidExists bool
 
@@ -447,7 +447,7 @@ func (cache *Cache) initialize(
 // This is a Self-Check Function intended to find Anomalies.
 // This Function is not intended to be used in an ordinary Case.
 // Returns 'true' if the Cache is in a good Shape.
-func (cache *Cache) isIntegral() bool {
+func (cache Cache) isIntegral() bool {
 
 	var cursor *Record
 	var cursorNextItem *Record
