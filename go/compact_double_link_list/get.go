@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-21.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -27,25 +27,34 @@
 package cdllist
 
 // Enlists Values of all Items of the List.
-func (list *List) EnlistAllItemValues() []interface{} {
+func (list List) EnlistAllItemValues() []interface{} {
 
 	var i uint64
-	var items []*ListItem
+	var item *ListItem
 	var size uint64
 	var values []interface{}
 
-	items = list.EnlistAllItems()
 	size = list.size
 	values = make([]interface{}, size)
-	for i = 0; i < size; i++ {
-		values[i] = items[i].Data
+	if size == 0 {
+		return values
+	}
+
+	// Get the first Item.
+	item = list.head
+	values[0] = item.Data
+
+	// Get all other Items.
+	for i = 1; i < size; i++ {
+		item = item.nextItem
+		values[i] = item.Data
 	}
 
 	return values
 }
 
 // Enlists all Items of the List.
-func (list *List) EnlistAllItems() []*ListItem {
+func (list List) EnlistAllItems() []*ListItem {
 
 	var i uint64
 	var item *ListItem
@@ -72,7 +81,7 @@ func (list *List) EnlistAllItems() []*ListItem {
 }
 
 // Returns List's Head.
-func (list *List) GetHead() *ListItem {
+func (list List) GetHead() *ListItem {
 
 	var head *ListItem
 
@@ -82,7 +91,7 @@ func (list *List) GetHead() *ListItem {
 }
 
 // Returns List's Size.
-func (list *List) GetSize() uint64 {
+func (list List) GetSize() uint64 {
 
 	var size uint64
 
@@ -92,7 +101,7 @@ func (list *List) GetSize() uint64 {
 }
 
 // Returns List's Tail.
-func (list *List) GetTail() *ListItem {
+func (list List) GetTail() *ListItem {
 
 	var tail *ListItem
 

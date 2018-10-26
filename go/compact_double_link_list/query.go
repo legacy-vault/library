@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-21.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -33,7 +33,7 @@ package cdllist
 // This greatly reduces Memory Load for Lists with simple Data Model and
 // big Size, but, as a Drawback, we have to do thorough Calculations each
 // Time we want to delete an Item from the List.
-func (list *List) HasAnItem(item *ListItem) bool {
+func (list List) HasAnItem(item *ListItem) bool {
 
 	var cursor *ListItem
 	var i uint64
@@ -78,7 +78,7 @@ func (list *List) HasAnItem(item *ListItem) bool {
 }
 
 // Checks whether the List is not empty.
-func (list *List) HasItems() bool {
+func (list List) HasItems() bool {
 
 	if list.size != 0 {
 		return true
@@ -88,7 +88,7 @@ func (list *List) HasItems() bool {
 }
 
 // Checks whether the List is empty.
-func (list *List) IsEmpty() bool {
+func (list List) IsEmpty() bool {
 
 	if list.size == 0 {
 		return true
@@ -101,7 +101,7 @@ func (list *List) IsEmpty() bool {
 // This is a Self-Check Function intended to find Anomalies.
 // This Function is not intended to be used in an ordinary Case.
 // Returns 'true' if the List is in a good Shape.
-func (list *List) IsIntegral() bool {
+func (list List) IsIntegral() bool {
 
 	var cursor *ListItem
 	var cursorNextItem *ListItem

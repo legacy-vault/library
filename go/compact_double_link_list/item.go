@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-21.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -36,7 +36,7 @@ type ListItem struct {
 }
 
 // Returns the next List Item.
-func (item *ListItem) GetNextItem() *ListItem {
+func (item ListItem) GetNextItem() *ListItem {
 
 	var nextItem *ListItem
 
@@ -46,7 +46,7 @@ func (item *ListItem) GetNextItem() *ListItem {
 }
 
 // Returns the previous List Item.
-func (item *ListItem) GetPreviousItem() *ListItem {
+func (item ListItem) GetPreviousItem() *ListItem {
 
 	var previousItem *ListItem
 
@@ -56,7 +56,7 @@ func (item *ListItem) GetPreviousItem() *ListItem {
 }
 
 // Checks whether an Item has next Item.
-func (item *ListItem) HasNextItem() bool {
+func (item ListItem) HasNextItem() bool {
 
 	var nextItem *ListItem
 
@@ -69,7 +69,7 @@ func (item *ListItem) HasNextItem() bool {
 }
 
 // Checks whether an Item has no next Item.
-func (item *ListItem) HasNoNextItem() bool {
+func (item ListItem) HasNoNextItem() bool {
 
 	var nextItem *ListItem
 
@@ -82,7 +82,7 @@ func (item *ListItem) HasNoNextItem() bool {
 }
 
 // Checks whether an Item has no previous Item.
-func (item *ListItem) HasNoPreviousItem() bool {
+func (item ListItem) HasNoPreviousItem() bool {
 
 	var previousItem *ListItem
 
@@ -95,7 +95,7 @@ func (item *ListItem) HasNoPreviousItem() bool {
 }
 
 // Checks whether an Item has previous Item.
-func (item *ListItem) HasPreviousItem() bool {
+func (item ListItem) HasPreviousItem() bool {
 
 	var previousItem *ListItem
 
