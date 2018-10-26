@@ -20,11 +20,10 @@
 //
 //============================================================================//
 
-// anomaly.go.
+// version.go.
 
-// Fixed Size Registry :: Anomaly Errors.
+// Fixed Size Registry :: Library Version.
 
 package fsregistry
 
-const ErrAnomalySize = "Size Anomaly"
-const ErrAnomalyTypeAssertion = "Type Assertion Anomaly"
+const LibraryVersion = "1.0"

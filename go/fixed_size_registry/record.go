@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-21.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -35,7 +35,7 @@ type Record struct {
 }
 
 // Gets the Creation Time of a Record.
-func (record *Record) GetTimeOfCreation() int64 {
+func (record Record) GetTimeOfCreation() int64 {
 
 	var toc int64
 

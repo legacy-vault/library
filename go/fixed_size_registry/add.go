@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-21.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -27,9 +27,10 @@
 package fsregistry
 
 import (
-	"github.com/legacy-vault/library/go/compact_double_link_list"
 	"log"
 	"time"
+
+	"github.com/legacy-vault/library/go/compact_double_link_list"
 )
 
 // Adds a Record to the Registry.

@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-21.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -27,13 +27,14 @@
 package fsregistry
 
 import (
-	"github.com/legacy-vault/library/go/compact_double_link_list"
 	"log"
+
+	"github.com/legacy-vault/library/go/compact_double_link_list"
 )
 
 // Gets the actual Size of the Registry,
 // the Number of Records actually stored.
-func (registry *Registry) GetSize() uint64 {
+func (registry Registry) GetSize() uint64 {
 
 	var size uint64
 
@@ -44,7 +45,7 @@ func (registry *Registry) GetSize() uint64 {
 
 // Gets the last Record from the Registry (if it is possible)
 // and the Registry Size.
-func (registry *Registry) GetLastRecord() (*Record, uint64) {
+func (registry Registry) GetLastRecord() (*Record, uint64) {
 
 	var listItem *cdllist.ListItem
 	var ok bool
@@ -69,7 +70,7 @@ func (registry *Registry) GetLastRecord() (*Record, uint64) {
 }
 
 // Gets all stored Records from the Registry and their Quantity.
-func (registry *Registry) GetStoredRecords() ([]*Record, uint64) {
+func (registry Registry) GetStoredRecords() ([]*Record, uint64) {
 
 	var i uint64
 	var ok bool
