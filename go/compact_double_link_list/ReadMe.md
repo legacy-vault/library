@@ -23,8 +23,8 @@ built-in 'list' Package.
 
 Import Commands:
 ```
-go get "github.com/legacy-vault/library/go/compact_double_link_list"
-go get "github.com/legacy-vault/example/go/compact_double_link_list/code"
+go get -u "github.com/legacy-vault/library/go/compact_double_link_list"
+go get -u "github.com/legacy-vault/example/go/compact_double_link_list/code"
 ```
 
 ## Usage.

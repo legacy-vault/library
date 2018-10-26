@@ -15,8 +15,8 @@ Works as a simple 'First In - First Out' (FIFO) Queue of a fixed Size.
 
 Import Commands:
 ```
-go get "github.com/legacy-vault/library/go/fixed_size_registry"
-go get "github.com/legacy-vault/example/go/fixed_size_registry/code"
+go get -u "github.com/legacy-vault/library/go/fixed_size_registry"
+go get -u "github.com/legacy-vault/example/go/fixed_size_registry/code"
 ```
 
 ## Usage.
