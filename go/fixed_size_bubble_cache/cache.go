@@ -235,7 +235,9 @@ func (cache Cache) GetRecordTTL() int64 {
 	return cache.recordTTL
 }
 
-// Checks whether the specified Record's UID exists in the Cache.
+// Checks whether the specified Record's UID exists in the Cache's List.
+// This Method only checks Existence in Cache's List and does not check
+// the active Status of the Record ('cached' or 'outdated').
 func (cache Cache) RecordUIDExists(uid RecordUID) bool {
 
 	var uidExists bool
@@ -243,6 +245,31 @@ func (cache Cache) RecordUIDExists(uid RecordUID) bool {
 	_, uidExists = cache.recordByUID[uid]
 
 	return uidExists
+}
+
+// Checks whether the specified Record's UID exists in the Cache and
+// the Record with such UID is still active (not outdated).
+func (cache Cache) RecordUIDIsActive(uid RecordUID) bool {
+
+	var nowTimeStamp int64
+	var record *Record
+	var recordLATMax int64
+	var uidExists bool
+
+	// Check Existence.
+	record, uidExists = cache.recordByUID[uid]
+	if !uidExists {
+		return false
+	}
+
+	// Check active Status.
+	recordLATMax = record.lastAccessTime + cache.recordTTL
+	nowTimeStamp = time.Now().Unix()
+	if nowTimeStamp > recordLATMax {
+		return false
+	}
+
+	return true
 }
 
 // Changes the 'RecordTTL' Parameter of the Cache.
