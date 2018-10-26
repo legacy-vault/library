@@ -49,8 +49,8 @@ and to save a lot of CPU Time. We check TTL only when it is neccessary.
 
 Import Commands:
 ```
-go get "github.com/legacy-vault/library/go/fixed_size_bubble_cache"
-go get "github.com/legacy-vault/example/go/fixed_size_bubble_cache/code"
+go get -u "github.com/legacy-vault/library/go/fixed_size_bubble_cache"
+go get -u "github.com/legacy-vault/example/go/fixed_size_bubble_cache/code"
 ```
 
 ## Usage.
