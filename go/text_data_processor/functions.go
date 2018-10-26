@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-17.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -25,9 +25,6 @@
 // Text Data Processor :: Auxiliary Functions.
 
 // Various auxiliary Functions used in Data Processor.
-
-// Author: McArcher.
-// Date: 2018-10-17.
 
 package processor
 
@@ -99,7 +96,7 @@ func indexOf(
 }
 
 // Lists all first-level Fields of an Object.
-func list1stLevelFields(obj EmptyInterface) (Names) {
+func list1stLevelFields(obj EmptyInterface) Names {
 
 	var fieldsCount int
 	var fieldName string

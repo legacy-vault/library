@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-17.
+// Creation Date:	2018-10-26.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -124,7 +124,7 @@ type RoutingTable []int
 func (p *Processor) Configure(
 	referenceObject EmptyInterface,
 	csvColumnNames Names,
-) (error) {
+) error {
 
 	var csvColumnNamesFFA Names
 	var err error
@@ -207,7 +207,7 @@ func (p Processor) namesModifyFFA(names Names) Names {
 // Processes the Data.
 // The Processor must be configured before doing any Data Processing.
 // Reads Cells from a Row and tries to put them into the Target Object.
-func (p *Processor) Process(
+func (p Processor) Process(
 	dataRow Cells,
 	targetPointer EmptyInterface,
 ) error {
@@ -230,7 +230,7 @@ func (p *Processor) Process(
 	var target reflect.Value
 
 	// Check Configurations Status.
-	if (p.IsConfigured == false) {
+	if p.IsConfigured == false {
 		err = errors.New(ErrConfigurationIsNotFinished)
 		return err
 	}
