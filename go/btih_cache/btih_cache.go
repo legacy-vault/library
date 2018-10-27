@@ -15,7 +15,7 @@
 //
 // Web Site:		'https://github.com/legacy-vault'.
 // Author:			McArcher.
-// Creation Date:	2018-10-26.
+// Creation Date:	2018-10-27.
 // Web Site Address is an Address in the global Computer Internet Network.
 //
 //============================================================================//
@@ -49,8 +49,7 @@ type BTIHCache struct {
 }
 
 var (
-	ErrCache         = errors.New("Cache Error")
-	ErrStorage       = errors.New("Storage Error")
+	ErrClosed        = errors.New("Cache is Closed")
 	ErrTypeAssertion = errors.New("Type Assertion Error")
 )
 
@@ -91,7 +90,7 @@ func New(
 }
 
 // Gets File's Contents by the BTIH.
-func (bc *BTIHCache) GetFileByBTIH(btih string) []byte {
+func (bc *BTIHCache) GetFileByBTIH(btih string) ([]byte, error) {
 
 	var err error
 	var ifc interface{}
@@ -102,7 +101,7 @@ func (bc *BTIHCache) GetFileByBTIH(btih string) []byte {
 
 	// Check State.
 	if bc.isActive == false {
-		return []byte{}
+		return []byte{}, ErrClosed
 	}
 
 	// Check the Cache.
@@ -112,11 +111,12 @@ func (bc *BTIHCache) GetFileByBTIH(btih string) []byte {
 		// Get File's Contents from Cache.
 		fileContents, ok = ifc.([]byte)
 		if !ok {
-			log.Println(ErrTypeAssertion, ifc)
-			return []byte{}
+			err = ErrTypeAssertion
+			log.Println(err, ifc)
+			return []byte{}, err
 		}
 
-		return fileContents
+		return fileContents, nil
 	}
 
 	// File is not cached.
@@ -125,19 +125,17 @@ func (bc *BTIHCache) GetFileByBTIH(btih string) []byte {
 	filePath = btih + FileExtension
 	fileContents, err = bc.storage.GetFileContents(filePath)
 	if err != nil {
-		log.Println(ErrStorage, err)
-		return []byte{}
+		return []byte{}, err
 	}
 
 	// Add File into Cache.
 	err = bc.cache.AddRecord(btih, fileContents)
 	if err != nil {
-		log.Println(ErrCache, err)
-		return []byte{}
+		return []byte{}, err
 	}
 
 	// All Clear.
-	return fileContents
+	return fileContents, nil
 }
 
 // Checks whether the BTIH specified is cached.
