@@ -9,8 +9,7 @@ This Package provides Encoding and Decoding of the 'bencode' Format.
 
 This Package provides Encoding and Decoding of the 'bencode' Format.<br />
 The 'bencode' Format was introduced with the Appearance of the BitTorrent Protocol.<br />
-This Package can encode and decode Data with the 'bencode' Format.
-Also this Packages provides some additional Functionality, such as:
+Apart from the encoding and decoding Data with the 'bencode' Format, this Packages also provides some additional Functionality, such as:
   - Automatic Self-Check after File Decoding;
   - Automatic Calculation of the BitTorrent Info Hash (also known as 'BTIH') after the File Decoding.
 
