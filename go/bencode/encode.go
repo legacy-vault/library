@@ -24,6 +24,8 @@
 
 // 'Bencode' Encoding Functions.
 
+// Last Update Time: 2018-10-29.
+
 package bencode
 
 import (
@@ -49,11 +51,21 @@ func encodeInterface(ifc interface{}) ([]byte, error) {
 	var err error
 	var ifcType reflect.Kind
 	var ifcElementType reflect.Kind
-	var integer uint64
+	var intVar int
+	var int8var int8
+	var int16var int16
+	var int32var int32
+	var int64var int64
 	var keyBA []byte
 	var list []interface{}
 	var listItem interface{}
 	var ok bool
+	var stringVar string
+	var uint8var uint8
+	var uint16var uint16
+	var uint32var uint32
+	var uint64var uint64
+	var uintVar uint
 	var valueBA []byte
 
 	// Check an Interface's Type.
@@ -148,11 +160,183 @@ func encodeInterface(ifc interface{}) ([]byte, error) {
 		// => 'bencode' Integer.
 
 		// Convert the Type.
-		integer, ok = ifc.(uint64)
+		uint64var, ok = ifc.(uint64)
 		if !ok {
 			return nil, ErrTypeAssertion
 		}
-		ba = createIntegerText(integer)
+		ba = createUIntegerText(uint64var)
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Int64 {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		int64var, ok = ifc.(int64)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createIntegerText(int64var)
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Int {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		intVar, ok = ifc.(int)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createIntegerText(int64(intVar))
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Uint {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		uintVar, ok = ifc.(uint)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createUIntegerText(uint64(uintVar))
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.String {
+
+		// String.
+		// => 'bencode' Byte String.
+
+		// Convert the Type.
+		stringVar, ok = ifc.(string)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+
+		// String → Byte Array.
+		ba = []byte(stringVar)
+
+		// Add Prefixes and Postfixes to the Byte String.
+		ba = append(createSizePrefix(uint64(len(ba))), ba...)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Uint32 {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		uint32var, ok = ifc.(uint32)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createUIntegerText(uint64(uint32var))
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Int32 {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		int32var, ok = ifc.(int32)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createIntegerText(int64(int32var))
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Uint16 {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		uint16var, ok = ifc.(uint16)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createUIntegerText(uint64(uint16var))
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Int16 {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		int16var, ok = ifc.(int16)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createIntegerText(int64(int16var))
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Uint8 {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		uint8var, ok = ifc.(uint8)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createUIntegerText(uint64(uint8var))
+
+		// Add Prefixes and Postfixes to the Integer.
+		ba = append(prefixInteger, ba...)
+		ba = append(ba, FooterCommon)
+
+		return ba, nil
+
+	} else if ifcType == reflect.Int8 {
+
+		// => 'bencode' Integer.
+
+		// Convert the Type.
+		int8var, ok = ifc.(int8)
+		if !ok {
+			return nil, ErrTypeAssertion
+		}
+		ba = createIntegerText(int64(int8var))
 
 		// Add Prefixes and Postfixes to the Integer.
 		ba = append(prefixInteger, ba...)
@@ -175,8 +359,14 @@ func createSizePrefix(size uint64) []byte {
 	)
 }
 
-// Creates an ASCII Text (Byte Array) of an Integer.
-func createIntegerText(value uint64) []byte {
+// Creates an ASCII Text (Byte Array) of an unsigned Integer.
+func createUIntegerText(value uint64) []byte {
 
 	return []byte(strconv.FormatUint(value, 10))
+}
+
+// Creates an ASCII Text (Byte Array) of a signed Integer.
+func createIntegerText(value int64) []byte {
+
+	return []byte(strconv.FormatInt(value, 10))
 }

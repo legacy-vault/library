@@ -24,6 +24,8 @@
 
 // BitTorrent Info Hash (BTIH) Check Sum Calculator.
 
+// Last Update Time: 2018-10-29.
+
 package bencode
 
 import (

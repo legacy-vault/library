@@ -20,12 +20,20 @@
 //
 //============================================================================//
 
-// version.go.
+// decode.go.
 
-// Library Version.
+// 'Bencode' Decoding Functions.
 
 // Last Update Time: 2018-10-29.
 
 package bencode
 
-const LibraryVersion = "1.1"
+import (
+	"bufio"
+)
+
+// Decodes a 'bencoded' Byte Stream into an Interface.
+func Decode(reader *bufio.Reader) (interface{}, error) {
+
+	return getBencodedValue(reader)
+}
