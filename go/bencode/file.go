@@ -30,7 +30,6 @@ package bencode
 
 import (
 	"bufio"
-	"io"
 	"io/ioutil"
 	"os"
 	"time"
@@ -47,15 +46,13 @@ func ParseFile(filePath string) (*DecodedObject, error) {
 	var ifc interface{}
 	var obj *DecodedObject
 	var ok bool
-	var reader io.Reader
 
 	// Open the File and prepare a Stream Reader.
 	file, err = os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
-	reader = bufio.NewReader(file)
-	bufioReader = bufio.NewReader(reader)
+	bufioReader = bufio.NewReader(file)
 
 	// Parse the File encoded with 'bencode' Encoding into an Object.
 	ifc, err = getBencodedValue(bufioReader)
