@@ -38,6 +38,7 @@ const ArchitectureIs64Bit bool = (strconv.IntSize == 64)
 const ArchitectureIs32Bit bool = (strconv.IntSize == 32)
 
 // Checks whether the Byte is ASCII numeric Symbol.
+// Negative Numbers are possible.
 func byteIsASCIINumeric(b byte) bool {
 
 	if (b == '0') ||
@@ -57,8 +58,29 @@ func byteIsASCIINumeric(b byte) bool {
 	return false
 }
 
+// Checks whether the Byte is ASCII non-negative numeric Symbol.
+// Negative Numbers are forbidden.
+func byteIsNonNegativeASCIINumeric(b byte) bool {
+
+	if (b == '0') ||
+		(b == '1') ||
+		(b == '2') ||
+		(b == '3') ||
+		(b == '4') ||
+		(b == '5') ||
+		(b == '6') ||
+		(b == '7') ||
+		(b == '8') ||
+		(b == '9') {
+		return true
+	}
+
+	return false
+}
+
 // Converts a Byte String into an unsigned 64-Bit Integer.
-func byteStringToInteger(ba []byte) (uint64, error) {
+// Negative Numbers are forbidden.
+func byteStringToNonNegativeInteger(ba []byte) (uint64, error) {
 
 	var err error
 	var result uint64
@@ -70,6 +92,27 @@ func byteStringToInteger(ba []byte) (uint64, error) {
 
 	str = string(ba)
 	result, err = strconv.ParseUint(str, 10, 64)
+	if err != nil {
+		return 0, err
+	}
+
+	return result, nil
+}
+
+// Converts a Byte String into a signed 64-Bit Integer.
+// Negative Numbers are possible.
+func byteStringToInteger(ba []byte) (int64, error) {
+
+	var err error
+	var result int64
+	var str string
+
+	if len(ba) > ByteStringMaxLength {
+		return 0, ErrByteStringToInt
+	}
+
+	str = string(ba)
+	result, err = strconv.ParseInt(str, 10, 64)
 	if err != nil {
 		return 0, err
 	}

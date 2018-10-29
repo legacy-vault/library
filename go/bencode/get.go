@@ -24,7 +24,7 @@
 
 // 'Bencode' Encoding Reader-Functions.
 
-// Last Update Time: 2018-10-29.
+// Last Update Time: 2018-10-30.
 
 package bencode
 
@@ -62,7 +62,7 @@ func getByteString(
 	for b != HeaderStringSizeValueDelimiter {
 
 		// Syntax Check.
-		if !byteIsASCIINumeric(b) {
+		if !byteIsNonNegativeASCIINumeric(b) {
 			errorArea = append(sizeHeader, []byte{b}...)
 			err = fmt.Errorf(ErrFmtSyntaxErrorAt, errorArea)
 			return ba, err
@@ -92,7 +92,7 @@ func getByteString(
 	}
 
 	// Convert Size Header into normal integer Size Value.
-	byteStringLen, err = byteStringToInteger(sizeHeader)
+	byteStringLen, err = byteStringToNonNegativeInteger(sizeHeader)
 	if err != nil {
 		return ba, err
 	}
@@ -202,12 +202,12 @@ func getDictionaryValue(reader *bufio.Reader) (interface{}, error) {
 func getInteger(
 	reader *bufio.Reader,
 	integerMaxLen int,
-) (uint64, error) {
+) (int64, error) {
 
 	var b byte
 	var err error
 	var errorArea []byte
-	var value uint64
+	var value int64
 	var valueBA []byte
 
 	// Prepare Data.
@@ -314,7 +314,7 @@ func getBencodedValue(reader *bufio.Reader) (interface{}, error) {
 	var errorArea []byte
 	var result interface{}
 	var resultByteString []byte
-	var resultInteger uint64
+	var resultInteger int64
 
 	// Get the first Byte from Stream to know its Type.
 	b, err = reader.ReadByte()
@@ -353,7 +353,7 @@ func getBencodedValue(reader *bufio.Reader) (interface{}, error) {
 
 		return resultInteger, nil
 
-	} else if byteIsASCIINumeric(b) {
+	} else if byteIsNonNegativeASCIINumeric(b) {
 
 		// It must be an ASCII Number indicating a Byte String.
 		// => Byte String.
