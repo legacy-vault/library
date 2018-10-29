@@ -24,7 +24,7 @@
 
 // Helping Functions.
 
-// Last Update Time: 2018-10-29.
+// Last Update Time: 2018-10-30.
 
 package bencode
 
@@ -49,7 +49,8 @@ func byteIsASCIINumeric(b byte) bool {
 		(b == '6') ||
 		(b == '7') ||
 		(b == '8') ||
-		(b == '9') {
+		(b == '9') ||
+		(b == '-') {
 		return true
 	}
 

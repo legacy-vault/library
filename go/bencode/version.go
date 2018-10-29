@@ -24,8 +24,8 @@
 
 // Library Version.
 
-// Last Update Time: 2018-10-29.
+// Last Update Time: 2018-10-30.
 
 package bencode
 
-const LibraryVersion = "1.1"
+const LibraryVersion = "1.2"
