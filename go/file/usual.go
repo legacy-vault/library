@@ -209,7 +209,11 @@ func ListFilesExtAllowed(
 			if goSubLevels {
 				// Check Sub-Levels.
 				subPath = path.Join(folderPath, item.Name())
-				subFiles = ListFiles(subPath, goSubLevels)
+				subFiles = ListFilesExtAllowed(
+					subPath,
+					goSubLevels,
+					extensionsAllowed,
+				)
 				files = append(files, subFiles...)
 			}
 
@@ -275,7 +279,11 @@ func ListFilesExtForbidden(
 			if goSubLevels {
 				// Check Sub-Levels.
 				subPath = path.Join(folderPath, item.Name())
-				subFiles = ListFiles(subPath, goSubLevels)
+				subFiles = ListFilesExtForbidden(
+					subPath,
+					goSubLevels,
+					extensionsForbidden,
+				)
 				files = append(files, subFiles...)
 			}
 
