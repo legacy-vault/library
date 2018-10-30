@@ -173,6 +173,32 @@ func ListFilesExtAllowed(
 	extensionsAllowed []string,
 ) []string {
 
+	// Fool Check.
+	if len(extensionsAllowed) == 0 {
+		return nil
+	}
+
+	// Prepare Data.
+	for i, ext := range extensionsAllowed {
+		extensionsAllowed[i] = "." + ext
+	}
+
+	return listFilesExtAllowed(
+		folderPath,
+		goSubLevels,
+		extensionsAllowed,
+	)
+}
+
+// Lists Files inside the Directory and filters them by their Extension.
+// Only Files with allowed Extensions will be returned.
+// Extensions must be provided in Golang Format (with '.' Dot Symbol).
+func listFilesExtAllowed(
+	folderPath string,
+	goSubLevels bool,
+	extensionsAllowed []string,
+) []string {
+
 	var err error
 	var ext string
 	var filePath string
@@ -182,16 +208,8 @@ func ListFilesExtAllowed(
 	var subFiles []string
 	var subPath string
 
-	// Fool Check.
-	if len(extensionsAllowed) == 0 {
-		return nil
-	}
-
 	// Prepare Data.
 	files = []string{}
-	for i, ext := range extensionsAllowed {
-		extensionsAllowed[i] = "." + ext
-	}
 
 	// Read one Directory.
 	items, err = ioutil.ReadDir(folderPath)
@@ -209,7 +227,7 @@ func ListFilesExtAllowed(
 			if goSubLevels {
 				// Check Sub-Levels.
 				subPath = path.Join(folderPath, item.Name())
-				subFiles = ListFilesExtAllowed(
+				subFiles = listFilesExtAllowed(
 					subPath,
 					goSubLevels,
 					extensionsAllowed,
@@ -235,9 +253,35 @@ func ListFilesExtAllowed(
 }
 
 // Lists Files inside the Directory and filters them by their Extension.
-// Only Files with not forbidden Extensions will be returned.
+// Only Files with not-forbidden Extensions will be returned.
 // Extensions must be provided without '.' Dot Symbol.
 func ListFilesExtForbidden(
+	folderPath string,
+	goSubLevels bool,
+	extensionsForbidden []string,
+) []string {
+
+	// Fool Check.
+	if len(extensionsForbidden) == 0 {
+		return nil
+	}
+
+	// Prepare Data.
+	for i, ext := range extensionsForbidden {
+		extensionsForbidden[i] = "." + ext
+	}
+
+	return listFilesExtForbidden(
+		folderPath,
+		goSubLevels,
+		extensionsForbidden,
+	)
+}
+
+// Lists Files inside the Directory and filters them by their Extension.
+// Only Files with not-forbidden Extensions will be returned.
+// Extensions must be provided in Golang Format (with '.' Dot Symbol).
+func listFilesExtForbidden(
 	folderPath string,
 	goSubLevels bool,
 	extensionsForbidden []string,
@@ -252,16 +296,8 @@ func ListFilesExtForbidden(
 	var subFiles []string
 	var subPath string
 
-	// Fool Check.
-	if len(extensionsForbidden) == 0 {
-		return nil
-	}
-
 	// Prepare Data.
 	files = []string{}
-	for i, ext := range extensionsForbidden {
-		extensionsForbidden[i] = "." + ext
-	}
 
 	// Read one Directory.
 	items, err = ioutil.ReadDir(folderPath)
@@ -279,7 +315,7 @@ func ListFilesExtForbidden(
 			if goSubLevels {
 				// Check Sub-Levels.
 				subPath = path.Join(folderPath, item.Name())
-				subFiles = ListFilesExtForbidden(
+				subFiles = listFilesExtForbidden(
 					subPath,
 					goSubLevels,
 					extensionsForbidden,
