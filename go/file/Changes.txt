@@ -1,0 +1,7 @@
+[1.0]
+Initial Release.
+
+[1.1]
+Added two new Functions to list Files with Extensions Filtering:
+	- ListFilesExtAllowed;
+	- ListFilesExtForbidden.

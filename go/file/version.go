@@ -24,6 +24,8 @@
 
 // Library Version.
 
+// Last Update Time: 2018-10-30.
+
 package file
 
-const LibraryVersion = "1.0"
+const LibraryVersion = "1.1"

@@ -66,3 +66,17 @@ func criterionTypeIsValid(criterionType byte) bool {
 
 	return false
 }
+
+// Checks whether an Array (Slice) of Strings contains the specified String.
+func existsIn(str string, strs []string) bool {
+
+	var s string
+
+	for _, s = range strs {
+		if s == str {
+			return true
+		}
+	}
+
+	return false
+}

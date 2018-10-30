@@ -24,6 +24,8 @@
 
 // File and Directory :: Usual Functions.
 
+// Last Update Time: 2018-10-30.
+
 package file
 
 import (
@@ -160,4 +162,136 @@ func ListFilesAndFolders(folderPath string, goSubLevels bool) []string {
 	}
 
 	return filesAndFolders
+}
+
+// Lists Files inside the Directory and filters them by their Extension.
+// Only Files with allowed Extensions will be returned.
+// Extensions must be provided without '.' Dot Symbol.
+func ListFilesExtAllowed(
+	folderPath string,
+	goSubLevels bool,
+	extensionsAllowed []string,
+) []string {
+
+	var err error
+	var ext string
+	var filePath string
+	var files []string
+	var item os.FileInfo
+	var items []os.FileInfo
+	var subFiles []string
+	var subPath string
+
+	// Fool Check.
+	if len(extensionsAllowed) == 0 {
+		return nil
+	}
+
+	// Prepare Data.
+	files = []string{}
+	for i, ext := range extensionsAllowed {
+		extensionsAllowed[i] = "." + ext
+	}
+
+	// Read one Directory.
+	items, err = ioutil.ReadDir(folderPath)
+	if err != nil {
+		return nil
+	}
+
+	// Check Items.
+	for _, item = range items {
+
+		// Directory?
+		if item.IsDir() {
+
+			// Directory.
+			if goSubLevels {
+				// Check Sub-Levels.
+				subPath = path.Join(folderPath, item.Name())
+				subFiles = ListFiles(subPath, goSubLevels)
+				files = append(files, subFiles...)
+			}
+
+		} else {
+
+			// Not a Directory.
+
+			// Check Extension.
+			ext = path.Ext(item.Name())
+			if !existsIn(ext, extensionsAllowed) {
+				continue
+			}
+			filePath = path.Join(folderPath, item.Name())
+			files = append(files, filePath)
+		}
+	}
+
+	return files
+}
+
+// Lists Files inside the Directory and filters them by their Extension.
+// Only Files with not forbidden Extensions will be returned.
+// Extensions must be provided without '.' Dot Symbol.
+func ListFilesExtForbidden(
+	folderPath string,
+	goSubLevels bool,
+	extensionsForbidden []string,
+) []string {
+
+	var err error
+	var ext string
+	var filePath string
+	var files []string
+	var item os.FileInfo
+	var items []os.FileInfo
+	var subFiles []string
+	var subPath string
+
+	// Fool Check.
+	if len(extensionsForbidden) == 0 {
+		return nil
+	}
+
+	// Prepare Data.
+	files = []string{}
+	for i, ext := range extensionsForbidden {
+		extensionsForbidden[i] = "." + ext
+	}
+
+	// Read one Directory.
+	items, err = ioutil.ReadDir(folderPath)
+	if err != nil {
+		return nil
+	}
+
+	// Check Items.
+	for _, item = range items {
+
+		// Directory?
+		if item.IsDir() {
+
+			// Directory.
+			if goSubLevels {
+				// Check Sub-Levels.
+				subPath = path.Join(folderPath, item.Name())
+				subFiles = ListFiles(subPath, goSubLevels)
+				files = append(files, subFiles...)
+			}
+
+		} else {
+
+			// Not a Directory.
+
+			// Check Extension.
+			ext = path.Ext(item.Name())
+			if existsIn(ext, extensionsForbidden) {
+				continue
+			}
+			filePath = path.Join(folderPath, item.Name())
+			files = append(files, filePath)
+		}
+	}
+
+	return files
 }
