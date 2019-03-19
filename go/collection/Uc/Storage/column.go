@@ -30,7 +30,7 @@ import (
 	"fmt"
 	"strings"
 
-	"xxx/Database"
+	"github.com/legacy-vault/library/go/collection/Database"
 )
 
 // Database Identifiers' Parameters.

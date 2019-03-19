@@ -27,10 +27,10 @@ package uc
 // Methods to check Entities' Membership.
 
 import (
-	databaseCollection "xxx/Database/Collection"
-	"xxx/Uc/Collection/Class"
-	"xxx/Uc/Collection/Class/Object"
-	classProperty "xxx/Uc/Collection/Class/Property"
+	databaseCollection "github.com/legacy-vault/library/go/collection/Database/Collection"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Object"
+	classProperty "github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property"
 )
 
 // Checks whether a Class Object read from the Database is truly a Member

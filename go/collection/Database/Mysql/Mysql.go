@@ -28,7 +28,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 // MySQL Verification.

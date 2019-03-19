@@ -30,10 +30,10 @@ import (
 	"errors"
 	"fmt"
 
-	"xxx/Common"
-	"xxx/Database/Identifier"
-	"xxx/Errorz"
-	"xxx/Utf8"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Database/Identifier"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Utf8"
 )
 
 // There are several Types of Tables in the Collection:

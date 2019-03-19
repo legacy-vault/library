@@ -35,9 +35,9 @@ import (
 	"fmt"
 	"strings"
 
-	"xxx/Common"
-	"xxx/Database/Class/Value"
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Database/Class/Value"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 // Notes:

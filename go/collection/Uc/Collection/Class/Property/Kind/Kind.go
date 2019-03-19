@@ -29,9 +29,9 @@ package kind
 import (
 	"fmt"
 
-	"xxx/Database/StringLiteral"
-	"xxx/Errorz"
-	"xxx/Uc/Collection/Class/Property/KindSettings"
+	"github.com/legacy-vault/library/go/collection/Database/StringLiteral"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property/KindSettings"
 )
 
 const ErrorReporter = "Kind"

@@ -30,7 +30,7 @@ import (
 	"fmt"
 	"testing"
 
-	"xxx/Common"
+	"github.com/legacy-vault/library/go/collection/Common"
 )
 
 const ErrIsNotRunning = "Test is not running"

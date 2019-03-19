@@ -32,10 +32,10 @@ import (
 	"strconv"
 	"testing"
 
-	"xxx/Database/Class/Value"
-	"xxx/Database/Configuration/Dsn"
-	"xxx/Database/Settings"
-	"xxx/Test"
+	"github.com/legacy-vault/library/go/collection/Database/Class/Value"
+	"github.com/legacy-vault/library/go/collection/Database/Configuration/Dsn"
+	"github.com/legacy-vault/library/go/collection/Database/Settings"
+	"github.com/legacy-vault/library/go/collection/Test"
 )
 
 func Test_Database_Prepare(

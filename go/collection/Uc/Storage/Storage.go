@@ -27,8 +27,8 @@ package storage
 // Storage.
 
 import (
-	"xxx/Database"
-	"xxx/Uc/Storage/Settings"
+	"github.com/legacy-vault/library/go/collection/Database"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings"
 )
 
 const ErrorReporter = "Storage"

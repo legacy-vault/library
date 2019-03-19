@@ -27,7 +27,7 @@ package uc
 // Collection Methods for Classes.
 
 import (
-	"xxx/Uc/Collection/Class"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
 )
 
 func (this Uc) GetClasses() (map[uint]class.Class, error) {

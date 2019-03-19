@@ -28,8 +28,8 @@ package uc
 // An accessible Wrapper of the Collection and its Storage.
 
 import (
-	"xxx/Uc/Collection"
-	"xxx/Uc/Storage"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage"
 )
 
 const ErrorReporter = "Uc"

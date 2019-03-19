@@ -28,8 +28,8 @@ package storage
 // Wrappers for the Database Methods.
 
 import (
-	"xxx/Database"
-	databaseCollection "xxx/Database/Collection"
+	"github.com/legacy-vault/library/go/collection/Database"
+	databaseCollection "github.com/legacy-vault/library/go/collection/Database/Collection"
 )
 
 func (this Storage) QueryClasses(

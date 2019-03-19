@@ -31,9 +31,9 @@ import (
 	"fmt"
 	"time"
 
-	"xxx/Common"
-	"xxx/Database/Configuration/Dsn"
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Database/Configuration/Dsn"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 const ErrorReporter = "Configuration"

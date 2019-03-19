@@ -31,11 +31,11 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	"xxx/Database"
-	"xxx/Errorz"
-	"xxx/Uc/Storage/Settings"
-	"xxx/Uc/Storage/Settings/Paths"
-	"xxx/Uc/Storage/Settings/Tables"
+	"github.com/legacy-vault/library/go/collection/Database"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings/Paths"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings/Tables"
 )
 
 // Sets the Settings

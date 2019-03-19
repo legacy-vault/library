@@ -28,8 +28,8 @@ package uc
 
 import (
 	"errors"
-	"xxx/Common"
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 // Closes the User's Collection.

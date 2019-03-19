@@ -33,10 +33,10 @@ import (
 	"fmt"
 	"strings"
 
-	"xxx/Database"
-	"xxx/Uc/Collection/Class"
-	"xxx/Uc/Collection/Class/Property"
-	"xxx/Uc/Storage/Settings/Tables"
+	"github.com/legacy-vault/library/go/collection/Database"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings/Tables"
 )
 
 // Checks all the Tables of the Collection in the Database.

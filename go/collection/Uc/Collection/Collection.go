@@ -29,11 +29,11 @@ package collection
 import (
 	"errors"
 	"fmt"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
 	"math"
 	"strings"
-	"xxx/Common"
-	"xxx/Errorz"
-	"xxx/Uc/Collection/Class"
 )
 
 const ErrorReporter = "Collection"

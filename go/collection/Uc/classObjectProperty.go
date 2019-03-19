@@ -28,11 +28,11 @@ package uc
 
 import (
 	"errors"
-	"xxx/Common"
-	"xxx/Errorz"
-	"xxx/Uc/Collection/Class"
-	"xxx/Uc/Collection/Class/Object"
-	"xxx/Uc/Collection/Class/Object/Property"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Object"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Object/Property"
 )
 
 // Adds a Property to the Collection Class Object.

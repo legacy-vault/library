@@ -29,7 +29,7 @@ package identifier
 import (
 	"unicode"
 
-	"xxx/Utf8"
+	"github.com/legacy-vault/library/go/collection/Utf8"
 )
 
 const AllowedSymbolUnderline = '_'

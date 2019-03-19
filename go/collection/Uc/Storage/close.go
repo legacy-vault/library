@@ -29,7 +29,7 @@ package storage
 import (
 	"errors"
 
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 // Disconnects from the Collection's Database.

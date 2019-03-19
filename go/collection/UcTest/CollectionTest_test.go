@@ -25,18 +25,20 @@
 package main
 
 import (
-	"github.com/kr/pretty"
 	"testing"
-	dbClass "xxx/Database/Class/Value"
-	databaseSettings "xxx/Database/Settings"
-	"xxx/Test"
-	"xxx/Uc"
-	"xxx/Uc/Collection/Class"
-	"xxx/Uc/Collection/Class/Object"
-	objectProperty "xxx/Uc/Collection/Class/Object/Property"
-	classProperty "xxx/Uc/Collection/Class/Property"
-	"xxx/Uc/Collection/Class/Property/KindSettings"
-	storageSettings "xxx/Uc/Storage/Settings"
+
+	"github.com/kr/pretty"
+
+	dbClass "github.com/legacy-vault/library/go/collection/Database/Class/Value"
+	databaseSettings "github.com/legacy-vault/library/go/collection/Database/Settings"
+	"github.com/legacy-vault/library/go/collection/Test"
+	"github.com/legacy-vault/library/go/collection/Uc"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Object"
+	objectProperty "github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Object/Property"
+	classProperty "github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property/KindSettings"
+	storageSettings "github.com/legacy-vault/library/go/collection/Uc/Storage/Settings"
 )
 
 const ErrErrorWasExpectedButNoneReceived = "Error was expected, " +

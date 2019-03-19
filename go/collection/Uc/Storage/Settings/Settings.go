@@ -29,12 +29,12 @@ package settings
 import (
 	"errors"
 
-	"xxx/Common"
-	"xxx/Database/Settings"
-	"xxx/Errorz"
-	"xxx/Uc/Storage/Settings/Paths"
-	"xxx/Uc/Storage/Settings/SqlTemplates"
-	"xxx/Uc/Storage/Settings/Tables"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Database/Settings"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings/Paths"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings/SqlTemplates"
+	"github.com/legacy-vault/library/go/collection/Uc/Storage/Settings/Tables"
 )
 
 const ErrorReporter = "Settings"

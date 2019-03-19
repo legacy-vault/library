@@ -28,13 +28,13 @@ package storage
 
 import (
 	"fmt"
+	"github.com/legacy-vault/library/go/collection/Database/StringLiteral"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Object"
+	objectProperty "github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Object/Property"
+	classProperty "github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property/KindSettings"
 	"strings"
-	"xxx/Database/StringLiteral"
-	"xxx/Uc/Collection/Class"
-	"xxx/Uc/Collection/Class/Object"
-	objectProperty "xxx/Uc/Collection/Class/Object/Property"
-	classProperty "xxx/Uc/Collection/Class/Property"
-	"xxx/Uc/Collection/Class/Property/KindSettings"
 )
 
 // Composes a Query to add a Class.

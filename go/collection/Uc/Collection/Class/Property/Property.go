@@ -30,10 +30,10 @@ import (
 	"fmt"
 	"time"
 
-	"xxx/Errorz"
-	"xxx/Uc/Collection/Class/Property/Kind"
-	"xxx/Uc/Collection/Class/Property/KindSettings"
-	"xxx/Utf8"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property/Kind"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class/Property/KindSettings"
+	"github.com/legacy-vault/library/go/collection/Utf8"
 )
 
 // Notes:

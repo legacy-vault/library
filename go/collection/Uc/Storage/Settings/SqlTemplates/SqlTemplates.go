@@ -29,8 +29,8 @@ package sqlTemplates
 import (
 	"errors"
 
-	"xxx/Common"
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 const ErrorReporter = "SqlTemplates"

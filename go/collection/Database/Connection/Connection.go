@@ -33,11 +33,11 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"xxx/Common"
-	"xxx/Database/Class"
-	"xxx/Database/Class/Value"
-	"xxx/Database/Configuration"
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Database/Class"
+	"github.com/legacy-vault/library/go/collection/Database/Class/Value"
+	"github.com/legacy-vault/library/go/collection/Database/Configuration"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 const ErrorReporter = "Connection"

@@ -28,7 +28,7 @@ import (
 	"fmt"
 	"strings"
 
-	"xxx/Errorz"
+	"github.com/legacy-vault/library/go/collection/Errorz"
 )
 
 // Collection Class Object Property Kind Setter.

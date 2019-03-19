@@ -28,9 +28,9 @@ package uc
 
 import (
 	"errors"
-	"xxx/Common"
-	"xxx/Errorz"
-	"xxx/Uc/Collection/Class"
+	"github.com/legacy-vault/library/go/collection/Common"
+	"github.com/legacy-vault/library/go/collection/Errorz"
+	"github.com/legacy-vault/library/go/collection/Uc/Collection/Class"
 )
 
 // Adds a new empty Class to the Collection and its Database.
